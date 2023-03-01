@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\V1\MartialartsController;
 use App\Http\Controllers\Api\V1\GymsController;
 use App\Http\Controllers\Api\V1\GymOwnersController;
 use App\Http\Controllers\Api\V1\FightsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,32 +22,32 @@ use App\Http\Controllers\Api\V1\FightsController;
 |
 */
 
-Route::get('students', function(){
-   return 'this is studens api';
+Route::middleware('auth:api')->group(function () {
+    Route::get('users', [UserController::class,'index2']);
+    Route::post('users', [UserController::class,'store']);
+    Route::get('users/{id}', [UserController::class,'show']);
+    Route::put('users/{id}/edit', [UserController::class,'update']);
+    Route::delete('users/{id}/delete', [UserController::class,'delete']);
+    Route::get('users/email/{email}', [UserController::class,'showByEmail']);
+
+
+    Route::get('usermartialarts', [UsermartialartsController::class,'index']);
+    Route::post('usermartialarts', [UsermartialartsController::class,'store']);
+
+
+    Route::get('sessions', [SessionsController::class,'index']);
+    Route::post('sessions', [SessionsController::class,'store']);
+
+    Route::get('martialarts', [MartialartsController::class,'index']);
+    Route::post('martialarts', [MartialartsController::class,'store']);
+
+    Route::get('gyms', [GymsController::class,'index']);
+
+    Route::get('gymowners', [GymOwnersController::class,'index']);
+
+    Route::get('fights', [FightsController::class,'index']);
 });
 
-Route::get('users', [UserController::class,'index2']);
-Route::post('users', [UserController::class,'store']);
-Route::get('users/{id}', [UserController::class,'show']);
-Route::put('users/{id}/edit', [UserController::class,'update']);
-Route::delete('users/{id}/delete', [UserController::class,'delete']);
-Route::get('users/email/{email}', [UserController::class,'showByEmail']);
-
-
-Route::get('usermartialarts', [UsermartialartsController::class,'index']);
-Route::post('usermartialarts', [UsermartialartsController::class,'store']);
-
-
-Route::get('sessions', [SessionsController::class,'index']);
-Route::post('sessions', [SessionsController::class,'store']);
-
-Route::get('martialarts', [MartialartsController::class,'index']);
-
-Route::get('gyms', [GymsController::class,'index']);
-
-Route::get('gymowners', [GymOwnersController::class,'index']);
-
-Route::get('fights', [FightsController::class,'index']);
 
 
 
